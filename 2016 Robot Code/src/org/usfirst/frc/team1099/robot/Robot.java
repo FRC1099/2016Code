@@ -1,7 +1,9 @@
 
 package org.usfirst.frc.team1099.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -26,6 +28,23 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
+    
+    CameraServer robocam;
+    
+    public Robot() {
+    	robocam = CameraServer.getInstance();
+        robocam.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        robocam.startAutomaticCapture("cam0");
+    }
+    
+    public void operatorControl() {
+
+        while (isOperatorControl() && isEnabled()) {
+            /** robot code here! **/
+            Timer.delay(0.005);		// wait for a motor update time
+        }
+    }
 
     /**
      * This function is run when the robot is first started up and should be
