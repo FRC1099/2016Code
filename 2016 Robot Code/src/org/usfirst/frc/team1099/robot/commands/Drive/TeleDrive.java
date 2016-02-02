@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1099.robot.commands.Drive;
 
-import org.usfirst.frc.team1099.robot.OI;
 import org.usfirst.frc.team1099.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,7 +12,7 @@ public class TeleDrive extends Command {
     public TeleDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires (Robot.drive);
+    	requires(Robot.drive);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +21,7 @@ public class TeleDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drive.operatorControl();
+    	Robot.drive.drive();
     }
 
     // Make this return true when this Command no longer needs to run execute()
