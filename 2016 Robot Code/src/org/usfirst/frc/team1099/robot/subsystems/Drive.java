@@ -23,15 +23,17 @@ public class Drive extends Subsystem {
 	public Drive() {
 		drive = new RobotDrive(RobotMap.LEFTDRIVE, RobotMap.RIGHTDRIVE);
 		drive.setExpiration(0.1);
-		lStick = OI.leftStick;
-		rStick = OI.rightStick;
+		//lStick = OI.leftStick;
+		//rStick = OI.rightStick;
 	}
 	
 	public void drive() {
 		drive.setSafetyEnabled(true);
 		while(true) {
-			drive.tankDrive(lStick, rStick);
+			drive.tankDrive(OI.gamepad.getRawAxis(5), OI.gamepad.getRawAxis(1));
 			Timer.delay(0.005);
+			
+			
 		}
 	}
 
