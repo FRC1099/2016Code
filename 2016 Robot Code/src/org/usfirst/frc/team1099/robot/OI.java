@@ -2,6 +2,8 @@ package org.usfirst.frc.team1099.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 import org.usfirst.frc.team1099.robot.commands.ExampleCommand;
 
 /**
@@ -40,10 +42,17 @@ public class OI {
     public static Joystick rightStick;
     public static Joystick gamepad;
     
+    
     public OI () {
     	leftStick = new Joystick(RobotMap.LEFTSTICK);
         rightStick = new Joystick(RobotMap.RIGHTSTICK);
         gamepad = new Joystick(RobotMap.GAMEPAD);
+        Button grab = new JoystickButton(gamepad, RobotMap.GRAB_OPEN);
+        Button ungrab = new JoystickButton(gamepad, RobotMap.GRAB_CLOSE);
+        Button grabToggle = new JoystickButton(gamepad, RobotMap.GRAB_TOGGLE);
+        Button intakeIn = new JoystickButton(gamepad, RobotMap.INTAKE_IN);
+        Button intakeOut = new JoystickButton(gamepad,RobotMap.INTAKE_OUT);
+        
     }
 }
 
