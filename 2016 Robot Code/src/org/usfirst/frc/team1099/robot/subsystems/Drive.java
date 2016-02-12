@@ -30,7 +30,7 @@ public class Drive extends Subsystem {
 	public void drive() {
 		drive.setSafetyEnabled(true);
 		while(true) {
-			drive.tankDrive(OI.gamepad.getRawAxis(5), OI.gamepad.getRawAxis(1));
+			drive.tankDrive(OI.leftStick.getRawAxis(1), OI.rightStick.getRawAxis(1));
 			Timer.delay(0.005);
 			
 			

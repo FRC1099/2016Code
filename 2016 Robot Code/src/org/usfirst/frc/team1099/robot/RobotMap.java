@@ -20,10 +20,10 @@ public class RobotMap {
     public static final int RIGHTSTICK = 1;
     public static final int GAMEPAD = 2;
     
-    //Gamepad Buttons
-    public static final int GRAB_OPEN = 1;
-    public static final int GRAB_CLOSE = 2;
-    public static final int GRAB_TOGGLE = 5;
+    //Gamepad Buttons:
+    public static final int TOGGLE_GRAB = 1;
+
+    //Gamepad Axes:
     public static final int INTAKE_IN = 3;
     public static final int INTAKE_OUT = 4;
     

@@ -3,6 +3,7 @@ package org.usfirst.frc.team1099.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team1099.robot.commands.Grabber.ToggleGrab;
 
 import org.usfirst.frc.team1099.robot.commands.ExampleCommand;
 
@@ -47,12 +48,18 @@ public class OI {
     	leftStick = new Joystick(RobotMap.LEFTSTICK);
         rightStick = new Joystick(RobotMap.RIGHTSTICK);
         gamepad = new Joystick(RobotMap.GAMEPAD);
-        Button grab = new JoystickButton(gamepad, RobotMap.GRAB_OPEN);
-        Button ungrab = new JoystickButton(gamepad, RobotMap.GRAB_CLOSE);
-        Button grabToggle = new JoystickButton(gamepad, RobotMap.GRAB_TOGGLE);
-        Button intakeIn = new JoystickButton(gamepad, RobotMap.INTAKE_IN);
-        Button intakeOut = new JoystickButton(gamepad,RobotMap.INTAKE_OUT);
+        Button togglegrab = new JoystickButton(gamepad, RobotMap.TOGGLE_GRAB);
+        
+        togglegrab.whenPressed(new ToggleGrab());
         
     }
+    
+    public double getLeftTrigger() {
+		return gamepad.getRawAxis(RobotMap.INTAKE_IN);
+	}
+	
+	public double getRightTrigger() {
+		return gamepad.getRawAxis(RobotMap.INTAKE_OUT);
+	}
 }
 

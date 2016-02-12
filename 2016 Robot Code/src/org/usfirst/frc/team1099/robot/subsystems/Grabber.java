@@ -14,20 +14,18 @@ public class Grabber extends Subsystem {
     // here. Call these from Commands.
 	DoubleSolenoid grab = new DoubleSolenoid(RobotMap.GRAB, RobotMap.UNGRAB);
 	
-	private boolean isGrab; 
+	private boolean isGrab = false; 
 
     public Grabber() {
-        
     }
     
     public void grab(){
-    	grab.set(DoubleSolenoid.Value.kForward);
-    	isGrab = true;
+    		grab.set(DoubleSolenoid.Value.kForward);
+    		isGrab = true;
     }
     
     public void ungrab(){
-    	grab.set(DoubleSolenoid.Value.kReverse);
-    	isGrab = false;
+    		grab.set(DoubleSolenoid.Value.kReverse);
     }
     
     public boolean isGrab(){
