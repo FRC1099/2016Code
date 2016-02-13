@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ToggleGrab extends Command {
+	private final int OPEN = 0;
+	private final int CLOSED = 1;
+	
+	private int grab_state = CLOSED;
 
     public ToggleGrab() {
         // Use requires() here to declare subsystem dependencies
@@ -21,12 +25,6 @@ public class ToggleGrab extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (!Robot.grabber.isGrab()) {
-    		Robot.grabber.grab();
-    	}
-    	else if(Robot.grabber.isGrab()){
-    		Robot.grabber.ungrab();
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

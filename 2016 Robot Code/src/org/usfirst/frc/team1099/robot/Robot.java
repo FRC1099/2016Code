@@ -7,9 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team1099.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
-import org.usfirst.frc.team1099.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
 import org.usfirst.frc.team1099.robot.subsystems.Intake;
 
@@ -28,20 +26,20 @@ public class Robot extends IterativeRobot {
 	public static final Drive drive = new Drive();
 	public static final Intake intake = new Intake();
 	public static final Grabber grabber = new Grabber();
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+
 	public static OI oi;
 
     Command autonomousCommand;
     SendableChooser chooser;
     
-    CameraServer robocam;
+   // CameraServer robocam;
     
-    public Robot() {
-    	robocam = CameraServer.getInstance();
-        robocam.setQuality(50);
+    //public Robot() {
+    	//robocam = CameraServer.getInstance();
+        //robocam.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
-        robocam.startAutomaticCapture("cam0");
-    }
+        //robocam.startAutomaticCapture("cam0");
+   // }
     
     public void operatorControl() {
 
@@ -58,7 +56,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }

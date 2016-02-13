@@ -21,17 +21,21 @@ public class RobotMap {
     public static final int GAMEPAD = 2;
     
     //Gamepad Buttons:
-    public static final int TOGGLE_GRAB = 1;
+    //public static final int TOGGLE_GRAB = 1;
+    public static final int GRABBUTTON = 3;
+    public static final int UN_GRABBUTTON = 4;
 
     //Gamepad Axes:
-    public static final int INTAKE_IN = 3;
-    public static final int INTAKE_OUT = 4;
-    
+    public static final int INTAKE_IN = 2;
+    public static final int INTAKE_OUT = 3;
     
     
     //Solenoid Channels
     public static final int GRAB = 0;
     public static final int UNGRAB = 1;
+    
+    //Digital Inputs:
+    public static final int BOULDER_SWITCH = 4;
     
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:

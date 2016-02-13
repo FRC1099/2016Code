@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1099.robot.commands.Intake;
 
-import org.usfirst.frc.team1099.robot.OI;
 import org.usfirst.frc.team1099.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,7 +31,6 @@ public class startIntake extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intake.stopIntake();
     }
 
     // Called when another command which requires one or more of the same

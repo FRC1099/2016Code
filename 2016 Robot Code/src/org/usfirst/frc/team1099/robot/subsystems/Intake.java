@@ -1,10 +1,14 @@
 package org.usfirst.frc.team1099.robot.subsystems;
 
 import org.usfirst.frc.team1099.robot.Robot;
+import org.usfirst.frc.team1099.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc.team1099.robot.commands.Intake.stopIntake;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team1099.robot.commands.Intake.startIntake;
 
 /**
  *
@@ -13,42 +17,39 @@ public class Intake extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	Victor intakeDrive;
-	boolean switched = false;
+	Victor intakeDrive = new Victor(3);
+	DigitalInput boulder_switch = new DigitalInput(RobotMap.BOULDER_SWITCH);
 	
 
     public Intake(){
-    	intakeDrive = new Victor(4);    	
     }
     
     public void startIntake(){
-    	if (!switched && Robot.oi.getLeftTrigger() > .01){
-    		intakeDrive.set(1);
+    	SmartDashboard.putBoolean("Boulder Switch", boulder_switch.get());
+    	if(boulder_switch.get()){
+    		if(Robot.oi.getLeftTrigger() > 0.99) {
+    			intakeDrive.set(0.9);
+    		}
+    		else if(Robot.oi.getRightTrigger() > 0.99){
+    			intakeDrive.set(0.3);
+    		}
+    		else {
+    			intakeDrive.set(0);
+    		}
     	}
     }
-    
-    public void reverseIntake(){
-    	if(Robot.oi.getRightTrigger() > .01){
-    		intakeDrive.set(-1);
-    	}
-    }
-    
-    public void stopIntake(){
-    	intakeDrive.set(0);
-    }
-    
-    public boolean switchOn() {
-    	return switched = true;
+	public boolean switchOn() {
+    	return !boulder_switch.get();
     }
     
     public boolean switchOff() {
-    	return switched = false;
+    	return boulder_switch.get();
     }
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new stopIntake());
+    	setDefaultCommand(new startIntake());
     	
     }
     

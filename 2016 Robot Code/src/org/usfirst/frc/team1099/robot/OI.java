@@ -3,9 +3,12 @@ package org.usfirst.frc.team1099.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.usfirst.frc.team1099.robot.commands.Grabber.ToggleGrab;
 
-import org.usfirst.frc.team1099.robot.commands.ExampleCommand;
+import org.usfirst.frc.team1099.robot.commands.Grabber.Grab;
+import org.usfirst.frc.team1099.robot.commands.Grabber.ToggleGrab;
+import org.usfirst.frc.team1099.robot.commands.Grabber.Un_Grab;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Axis;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -48,9 +51,15 @@ public class OI {
     	leftStick = new Joystick(RobotMap.LEFTSTICK);
         rightStick = new Joystick(RobotMap.RIGHTSTICK);
         gamepad = new Joystick(RobotMap.GAMEPAD);
-        Button togglegrab = new JoystickButton(gamepad, RobotMap.TOGGLE_GRAB);
         
-        togglegrab.whenPressed(new ToggleGrab());
+        // Button togglegrab = new JoystickButton(gamepad, RobotMap.TOGGLE_GRAB);
+        Button intake_in = new JoystickButton(gamepad, RobotMap.GRABBUTTON);
+        Button intake_out = new JoystickButton(gamepad, RobotMap.UN_GRABBUTTON);
+        
+        // togglegrab.whenPressed(new ToggleGrab());
+        intake_in.whileHeld(new Grab());
+        intake_out.whenPressed(new Un_Grab());
+        
         
     }
     
