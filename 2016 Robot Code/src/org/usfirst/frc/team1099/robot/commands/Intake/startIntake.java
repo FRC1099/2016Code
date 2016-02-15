@@ -24,7 +24,7 @@ public class startIntake extends Command {
     	Robot.intake.startIntake();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+   //Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return Robot.intake.switchOn();
     }

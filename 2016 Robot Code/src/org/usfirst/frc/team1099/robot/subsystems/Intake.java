@@ -19,7 +19,6 @@ public class Intake extends Subsystem {
     // here. Call these from Commands.
 	Victor intakeDrive = new Victor(3);
 	DigitalInput boulder_switch = new DigitalInput(RobotMap.BOULDER_SWITCH);
-	
 
     public Intake(){
     }
