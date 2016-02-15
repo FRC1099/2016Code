@@ -1,3 +1,11 @@
 .metadata/
 RemoteSystemsTempFiles/
 .classpath
+.class
+2016 Robot Code/bin/org/usfirst/frc/team1099/robot/commands/Grabber/Grab.class
+
+*.class
+
+*.class
+
+2016 Robot Code/dist/FRCUserProgram.jar
