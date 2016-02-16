@@ -21,13 +21,13 @@ public class RobotMap {
     public static final int GAMEPAD = 2;
     
     //Gamepad Buttons:
-    //public static final int TOGGLE_GRAB = 1;
-    public static final int GRABBUTTON = 3;
-    public static final int UN_GRABBUTTON = 4;
+    public static final int TOGGLE_INTAKE = 1;
+    public static final int INBUTTON = 3;
+    public static final int OUTGRABBUTTON = 4;
 
     //Gamepad Axes:
-    public static final int INTAKE_IN = 2;
-    public static final int INTAKE_OUT = 3;
+    public static final int BALL_IN = 2;
+    public static final int BALL_OUT = 3;
     
     
     //Solenoid Channels

@@ -15,19 +15,26 @@ public class Grabber extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	DoubleSolenoid grab = new DoubleSolenoid(RobotMap.GRAB, RobotMap.UNGRAB);
+	public boolean isOpen = true;
 
     public Grabber() {
     }
     
     public void grab(){
-    	SmartDashboard.putString("Grab", "Grabbing");
+    	SmartDashboard.putString("Grab", "Grabbing" );
     	grab.set(DoubleSolenoid.Value.kForward);
+    	isOpen = false;
     }
     
     public void ungrab(){
     	SmartDashboard.putString("Grab", "Un-grabbing");
     	grab.set(DoubleSolenoid.Value.kReverse);
+    	isOpen = true;
     }
+    
+	public boolean isOpen() {
+		return isOpen;
+	}
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

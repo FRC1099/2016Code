@@ -52,23 +52,24 @@ public class OI {
         rightStick = new Joystick(RobotMap.RIGHTSTICK);
         gamepad = new Joystick(RobotMap.GAMEPAD);
         
-        // Button togglegrab = new JoystickButton(gamepad, RobotMap.TOGGLE_GRAB);
-        Button intake_in = new JoystickButton(gamepad, RobotMap.GRABBUTTON);
-        Button intake_out = new JoystickButton(gamepad, RobotMap.UN_GRABBUTTON);
+        Button togglegrab = new JoystickButton(gamepad, RobotMap.TOGGLE_INTAKE);
+        Button inbutton = new JoystickButton(gamepad, RobotMap.INBUTTON);
+        Button outbutton = new JoystickButton(gamepad, RobotMap.OUTGRABBUTTON);
         
         // togglegrab.whenPressed(new ToggleGrab());
-        intake_in.whileHeld(new Grab());
-        intake_out.whenPressed(new Un_Grab());
+        inbutton.whenPressed(new Grab());
+        outbutton.whenPressed(new Un_Grab());
+        togglegrab.whenPressed(new ToggleGrab());
         
         
     }
     
     public double getLeftTrigger() {
-		return gamepad.getRawAxis(RobotMap.INTAKE_IN);
+		return gamepad.getRawAxis(RobotMap.BALL_IN);
 	}
 	
 	public double getRightTrigger() {
-		return gamepad.getRawAxis(RobotMap.INTAKE_OUT);
+		return gamepad.getRawAxis(RobotMap.BALL_OUT);
 	}
 }
 

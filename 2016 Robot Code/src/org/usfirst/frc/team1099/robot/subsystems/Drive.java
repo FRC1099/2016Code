@@ -28,14 +28,10 @@ public class Drive extends Subsystem {
 	}
 	
 	public void drive() {
-		drive.setSafetyEnabled(true);
-		while(true) {
-			drive.tankDrive(-OI.leftStick.getRawAxis(1), -OI.rightStick.getRawAxis(1));
-			Timer.delay(0.005);
-			
-			
+		drive.tankDrive(-OI.leftStick.getRawAxis(1), -OI.rightStick.getRawAxis(1));	
 		}
-	}
+	
+	
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
