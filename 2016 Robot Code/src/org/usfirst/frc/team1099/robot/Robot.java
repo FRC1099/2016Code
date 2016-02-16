@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
+import org.usfirst.frc.team1099.robot.commands.DriveAuto;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
 import org.usfirst.frc.team1099.robot.subsystems.Intake;
@@ -56,8 +58,10 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
-//        chooser.addObject("My Auto", new MyAutoCommand());
+//      chooser.addObject("My Auto", new MyAutoCommand());
+        chooser.addDefault("Drive Forward", new DriveAuto());
         SmartDashboard.putData("Auto mode", chooser);
+        
         SmartDashboard.putData("Grabber", Robot.grabber );
         SmartDashboard.putData("Intake", Robot.intake );
         SmartDashboard.putData("Drive", Robot.drive );
