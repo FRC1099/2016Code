@@ -21,13 +21,11 @@ public class Grabber extends Subsystem {
     }
     
     public void grab(){
-    	SmartDashboard.putString("Grab", "Grabbing" );
     	grab.set(DoubleSolenoid.Value.kForward);
     	isOpen = false;
     }
     
     public void ungrab(){
-    	SmartDashboard.putString("Grab", "Un-grabbing");
     	grab.set(DoubleSolenoid.Value.kReverse);
     	isOpen = true;
     }
