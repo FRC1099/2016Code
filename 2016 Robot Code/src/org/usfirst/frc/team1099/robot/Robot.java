@@ -11,7 +11,9 @@ import org.usfirst.frc.team1099.robot.commands.DriveAuto;
 import org.usfirst.frc.team1099.robot.commands.Spin;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
+import org.usfirst.frc.team1099.robot.subsystems.HangArm;
 import org.usfirst.frc.team1099.robot.subsystems.Intake;
+import org.usfirst.frc.team1099.robot.subsystems.LiftArm;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,6 +30,8 @@ public class Robot extends IterativeRobot {
 	public static final Drive drive = new Drive();
 	public static final Intake intake = new Intake();
 	public static final Grabber grabber = new Grabber();
+	public static final HangArm hangarm = new HangArm();
+	public static final LiftArm liftarm = new LiftArm();
 
 	public static OI oi;
 

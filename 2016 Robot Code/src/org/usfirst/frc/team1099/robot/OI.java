@@ -39,5 +39,13 @@ public class OI {
 	public double getRightTrigger() {
 		return gamepad.getRawAxis(RobotMap.BALL_OUT);
 	}
+	
+	public double getLiftArm() {
+		return gamepad.getRawAxis(RobotMap.LIFT_ARM);
+	}
+	
+	public double getHangArm() {
+		return gamepad.getRawAxis(RobotMap.HANG_ARM);
+	}
 }
 
