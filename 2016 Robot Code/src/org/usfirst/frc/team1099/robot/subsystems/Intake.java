@@ -24,19 +24,17 @@ public class Intake extends Subsystem {
     }
     
     public void startIntake(){
-    	SmartDashboard.putBoolean("Boulder Switch", boulder_switch.get());
-    	if(boulder_switch.get()){
+    	
     		if(Robot.oi.getLeftTrigger() > 0.99) {
     			intakeDrive.set(0.9);
     		}
     		else if(Robot.oi.getRightTrigger() > 0.99){
-    			intakeDrive.set(0.3);
-    		}
-    		else {
+    			intakeDrive.set(-0.9);
+    		} else {
     			intakeDrive.set(0);
     		}
-    	}
     }
+    
 	public boolean switchOn() {
     	return !boulder_switch.get();
     }
@@ -46,12 +44,9 @@ public class Intake extends Subsystem {
     }
     
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new startIntake());
     	
     }
-    
-
+   
 }
 

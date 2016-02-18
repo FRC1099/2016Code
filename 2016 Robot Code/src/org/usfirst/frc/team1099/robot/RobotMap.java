@@ -22,8 +22,6 @@ public class RobotMap {
     
     //Gamepad Buttons:
     public static final int TOGGLE_INTAKE = 1;
-    public static final int INBUTTON = 3;
-    public static final int OUTGRABBUTTON = 4;
 
     //Gamepad Axes:
     public static final int BALL_IN = 2;

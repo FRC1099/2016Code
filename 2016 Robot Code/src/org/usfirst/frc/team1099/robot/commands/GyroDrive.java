@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1099.robot.commands.Grabber;
+package org.usfirst.frc.team1099.robot.commands;
 
 import org.usfirst.frc.team1099.robot.Robot;
 
@@ -7,40 +7,30 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ToggleGrab extends Command {
-	public final int OPEN = 0;
-	public final int CLOSED = 1;
+public class GyroDrive extends Command {
+
+	private double speed = 0.0;
 	
-	private int grab_state = CLOSED;
-
-
-    public ToggleGrab() {
+    public GyroDrive(double speed) {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.grabber);
+        requires(Robot.drive);
+        
+        this.speed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.drive.resetYaw();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if ( grab_state == OPEN)
-		{
-			Robot.grabber.grab();
-			grab_state = CLOSED;
-		}
-    	else
-    	{
-    		Robot.grabber.ungrab();
-    		grab_state = OPEN;
-    	}
+    	Robot.drive.gryoDrive(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

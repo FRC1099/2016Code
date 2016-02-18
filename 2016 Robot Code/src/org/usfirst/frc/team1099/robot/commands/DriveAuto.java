@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1099.robot.commands;
 
-import org.usfirst.frc.team1099.robot.commands.Drive.TeleDrive;
+import org.usfirst.frc.team1099.robot.commands.Drive.AutoDrive;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -26,6 +26,10 @@ public class DriveAuto extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new TeleDrive(), 5.0);
+    	addSequential(new AutoDrive(.5), 1.0);
+    	addSequential(new AutoDrive(0), 1.0);
+    	addSequential(new AutoDrive(.8), 2.0);
+    	
+    	
     }
 }

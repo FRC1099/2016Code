@@ -3,12 +3,12 @@ package org.usfirst.frc.team1099.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team1099.robot.commands.DriveAuto;
+import org.usfirst.frc.team1099.robot.commands.Spin;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
 import org.usfirst.frc.team1099.robot.subsystems.Intake;
@@ -34,32 +34,23 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     SendableChooser chooser;
     
-   // CameraServer robocam;
+   CameraServer robocam;
     
-    //public Robot() {
-    	//robocam = CameraServer.getInstance();
-        //robocam.setQuality(50);
-        //the camera name (ex "cam0") can be found through the roborio web interface
-        //robocam.startAutomaticCapture("cam0");
-   // }
-    
-    public void operatorControl() {
-
-        while (isOperatorControl() && isEnabled()) {
-            /** robot code here! **/
-            Timer.delay(0.005);		// wait for a motor update time
-        }
-    }
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
 		oi = new OI();
+		
+		robocam = CameraServer.getInstance();
+		robocam.setQuality(50);
+		robocam.startAutomaticCapture("cam0");
+		
         chooser = new SendableChooser();
 //      chooser.addObject("My Auto", new MyAutoCommand());
         chooser.addDefault("Drive Forward", new DriveAuto());
+        chooser.addDefault("Spin", new Spin());
         SmartDashboard.putData("Auto mode", chooser);
         
         SmartDashboard.putData("Grabber", Robot.grabber );
@@ -91,17 +82,6 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         autonomousCommand = (Command) chooser.getSelected();
         
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
-    	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
