@@ -60,7 +60,30 @@ public class Drive extends Subsystem {
 			autoDrive(speed, speed*(1+m));
 		}
 	}
+	
+	public void turnAngle(double target){
+		double dif = target - gyro.getYaw();
+		double factor = 0.09;
+		double maxTurn = 10; //turn 10 degrees
+		double actualTurn;
+		
+		actualTurn = dif * factor;
+		
+		if(actualTurn > maxTurn){
+			drive.arcadeDrive(0.0,  maxTurn);
+		}
+		else if (actualTurn < (maxTurn * -1.0)){
+			drive.arcadeDrive(0, maxTurn * -1.0);
+		} else {
+			drive.arcadeDrive(0, actualTurn);
+		}
+		
+	}
 
+	public double getYaw(){
+		return gyro.getYaw();
+	}
+	
 	public void resetYaw(){
 		gyro.zeroYaw();
 	}
