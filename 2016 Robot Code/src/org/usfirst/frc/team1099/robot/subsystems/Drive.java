@@ -63,8 +63,8 @@ public class Drive extends Subsystem {
 	
 	public void turnAngle(double target){
 		double dif = target - gyro.getYaw();
-		double factor = 0.09;
-		double maxTurn = 10; //turn 10 degrees
+		double factor = 0.005;
+		double maxTurn = 1; //turn 10 degrees
 		double actualTurn;
 		
 		actualTurn = dif * factor;

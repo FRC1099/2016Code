@@ -22,6 +22,7 @@ public class RobotMap {
     
     //Gamepad Buttons:
     public static final int TOGGLE_INTAKE = 1;
+    public static final int TURN_ANGLE = 2;
 
     //Gamepad Axes:
     public static final int HANG_ARM = 1;

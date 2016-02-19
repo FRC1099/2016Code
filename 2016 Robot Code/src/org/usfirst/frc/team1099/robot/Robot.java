@@ -60,6 +60,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Grabber", Robot.grabber );
         SmartDashboard.putData("Intake", Robot.intake );
         SmartDashboard.putData("Drive", Robot.drive );
+    
+        SmartDashboard.putNumber("Turn Angle", 0);
+        
     }
 	
 	/**

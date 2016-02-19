@@ -15,7 +15,7 @@ public class TurnAngle extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drive);
-        target = SmartDashboard.getNumber("Turn Angle", 90.0); 
+    	target = SmartDashboard.getNumber("Turn Angle"); 
     }
 
     // Called just before this Command runs the first time
