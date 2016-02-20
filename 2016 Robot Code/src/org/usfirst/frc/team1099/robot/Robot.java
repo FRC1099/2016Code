@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team1099.robot.commands.DriveAuto;
 import org.usfirst.frc.team1099.robot.commands.Spin;
+import org.usfirst.frc.team1099.robot.commands.TestCommandGroup;
+import org.usfirst.frc.team1099.robot.commands.TurnAngle;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
 import org.usfirst.frc.team1099.robot.subsystems.HangArm;
@@ -61,8 +63,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Intake", Robot.intake );
         SmartDashboard.putData("Drive", Robot.drive );
     
-        SmartDashboard.putNumber("Turn Angle", 0);
+        SmartDashboard.putNumber("Turn Angle", 90);
+        //SmartDashboard.putNumber("Yaw", Robot.drive.getYaw());
         
+        //SmartDashboard.putData("Test Group", new TestCommandGroup());
     }
 	
 	/**

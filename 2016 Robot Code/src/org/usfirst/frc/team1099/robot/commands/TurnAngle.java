@@ -15,18 +15,27 @@ public class TurnAngle extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drive);
-    	target = SmartDashboard.getNumber("Turn Angle"); 
+    }
+    
+    public TurnAngle(double target) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.drive);
+    	this.target = target;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drive.resetYaw();
+    	target = SmartDashboard.getNumber("Turn Angle",20.0); 
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.drive.turnAngle(this.target);
     }
+    
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

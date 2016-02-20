@@ -63,11 +63,12 @@ public class Drive extends Subsystem {
 	
 	public void turnAngle(double target){
 		double dif = target - gyro.getYaw();
-		double factor = 0.005;
-		double maxTurn = 1; //turn 10 degrees
+		double factor = 0.05;
+		double maxTurn = 10; //turn 10 degrees
 		double actualTurn;
-		
-		actualTurn = dif * factor;
+	System.out.print(dif);
+	System.out.print("\n");
+		actualTurn = dif * factor *-1.0;
 		
 		if(actualTurn > maxTurn){
 			drive.arcadeDrive(0.0,  maxTurn);
