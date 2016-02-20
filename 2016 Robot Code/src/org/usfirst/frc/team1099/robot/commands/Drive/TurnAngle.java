@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1099.robot.commands;
+package org.usfirst.frc.team1099.robot.commands.Drive;
 
 import org.usfirst.frc.team1099.robot.Robot;
 
@@ -27,7 +27,7 @@ public class TurnAngle extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drive.resetYaw();
-    	target = SmartDashboard.getNumber("Turn Angle",20.0); 
+    	target = SmartDashboard.getNumber("Turn Angle",90.0); 
         
     }
 

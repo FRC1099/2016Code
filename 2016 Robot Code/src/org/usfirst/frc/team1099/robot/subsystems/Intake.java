@@ -29,7 +29,7 @@ public class Intake extends Subsystem {
     			intakeDrive.set(0.9);
     		}
     		else if(Robot.oi.getRightTrigger() > 0.99){
-    			intakeDrive.set(-0.9);
+    			intakeDrive.set(-1.0);
     		} else {
     			intakeDrive.set(0);
     		}

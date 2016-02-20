@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1099.robot.commands.GyroDrive;
-import org.usfirst.frc.team1099.robot.commands.TurnAngle;
+import org.usfirst.frc.team1099.robot.commands.Drive.GyroDrive;
+import org.usfirst.frc.team1099.robot.commands.Drive.TurnAngle;
 import org.usfirst.frc.team1099.robot.commands.Grabber.Grab;
 import org.usfirst.frc.team1099.robot.commands.Grabber.ToggleGrab;
 import org.usfirst.frc.team1099.robot.commands.Grabber.Un_Grab;
@@ -30,10 +30,10 @@ public class OI {
         togglegrab.whenPressed(new ToggleGrab());
         
         // drive straight
-        Button go_straight = new JoystickButton(gamepad, 4);
-        go_straight.whileHeld( new GyroDrive(.5));
-        Button turnAngle = new JoystickButton(gamepad, RobotMap.TURN_ANGLE);
-        turnAngle.whenPressed(new TurnAngle());
+        //Button go_straight = new JoystickButton(gamepad, 4);
+        //go_straight.whileHeld( new GyroDrive(.5));
+        //Button turnAngle = new JoystickButton(gamepad, RobotMap.TURN_ANGLE);
+        //turnAngle.whenPressed(new TurnAngle());
     }
     
     public double getLeftTrigger() {

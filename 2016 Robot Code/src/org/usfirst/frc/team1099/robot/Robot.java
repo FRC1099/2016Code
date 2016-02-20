@@ -7,10 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import org.usfirst.frc.team1099.robot.commands.DoNothing;
+import org.usfirst.frc.team1099.robot.commands.DriveAndTurn;
 import org.usfirst.frc.team1099.robot.commands.DriveAuto;
+import org.usfirst.frc.team1099.robot.commands.DriveForward;
 import org.usfirst.frc.team1099.robot.commands.Spin;
-import org.usfirst.frc.team1099.robot.commands.TestCommandGroup;
-import org.usfirst.frc.team1099.robot.commands.TurnAngle;
+import org.usfirst.frc.team1099.robot.commands.Drive.TurnAngle;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
 import org.usfirst.frc.team1099.robot.subsystems.HangArm;
@@ -40,7 +42,15 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     SendableChooser chooser;
     
-   CameraServer robocam;
+    CameraServer camserver;
+
+    public Robot() {
+        camserver = CameraServer.getInstance();
+        camserver.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        camserver.startAutomaticCapture("cam1");
+    }
+
     
     /**
      * This function is run when the robot is first started up and should be
@@ -49,24 +59,19 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		
-		robocam = CameraServer.getInstance();
-		robocam.setQuality(50);
-		robocam.startAutomaticCapture("cam0");
-		
         chooser = new SendableChooser();
-//      chooser.addObject("My Auto", new MyAutoCommand());
-        chooser.addDefault("Drive Forward", new DriveAuto());
-        chooser.addDefault("Spin", new Spin());
+
+        chooser.addObject("Do Nothing", new DoNothing());
+        chooser.addObject("DriveAndTurn", new DriveAndTurn());
+        chooser.addObject("Drive Forward", new DriveForward());
+        
         SmartDashboard.putData("Auto mode", chooser);
         
         SmartDashboard.putData("Grabber", Robot.grabber );
         SmartDashboard.putData("Intake", Robot.intake );
         SmartDashboard.putData("Drive", Robot.drive );
     
-        SmartDashboard.putNumber("Turn Angle", 90);
-        //SmartDashboard.putNumber("Yaw", Robot.drive.getYaw());
-        
-        //SmartDashboard.putData("Test Group", new TestCommandGroup());
+        SmartDashboard.putNumber("Turn Angle", 90.0);
     }
 	
 	/**
