@@ -12,6 +12,7 @@ import org.usfirst.frc.team1099.robot.commands.DriveAndTurn;
 import org.usfirst.frc.team1099.robot.commands.DriveAuto;
 import org.usfirst.frc.team1099.robot.commands.DriveForward;
 import org.usfirst.frc.team1099.robot.commands.Spin;
+import org.usfirst.frc.team1099.robot.commands.Drive.ResetPID;
 import org.usfirst.frc.team1099.robot.commands.Drive.TurnAngle;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
@@ -46,12 +47,11 @@ public class Robot extends IterativeRobot {
 
     public Robot() {
         camserver = CameraServer.getInstance();
-        camserver.setQuality(50);
+        camserver.setQuality(25);
         //the camera name (ex "cam0") can be found through the roborio web interface
         camserver.startAutomaticCapture("cam1");
     }
 
-    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -72,6 +72,20 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Drive", Robot.drive );
     
         SmartDashboard.putNumber("Turn Angle", 90.0);
+        
+        SmartDashboard.putNumber("intake_speed", 0.5);
+        
+        // seed the PID settings
+        SmartDashboard.putNumber("PID-p", 0.2);
+    	SmartDashboard.putNumber("PID-i", 0.001);
+    	SmartDashboard.putNumber("PID-d", 0.0);
+    	SmartDashboard.putNumber("PID-f", 0.5);
+    	
+        // add some command shortcuts
+        SmartDashboard.putData("Do 90 Degrees", new TurnAngle(-90));
+        SmartDashboard.putData("Reset PID", new ResetPID());
+        
+        
     }
 	
 	/**
@@ -115,6 +129,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
     }
 
     /**

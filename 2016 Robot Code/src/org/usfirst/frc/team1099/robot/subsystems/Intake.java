@@ -17,7 +17,7 @@ public class Intake extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	Victor intakeDrive = new Victor(3);
+	Victor intakeDrive = new Victor(RobotMap.INTAKE); 
 	DigitalInput boulder_switch = new DigitalInput(RobotMap.BOULDER_SWITCH);
 
     public Intake(){
@@ -25,8 +25,10 @@ public class Intake extends Subsystem {
     
     public void startIntake(){
     	
+    		double in_speed = SmartDashboard.getNumber("intake_speed", 0.5);
+    		
     		if(Robot.oi.getLeftTrigger() > 0.99) {
-    			intakeDrive.set(0.9);
+    			intakeDrive.set(in_speed);
     		}
     		else if(Robot.oi.getRightTrigger() > 0.99){
     			intakeDrive.set(-1.0);
@@ -46,6 +48,10 @@ public class Intake extends Subsystem {
     public void initDefaultCommand() {
     	setDefaultCommand(new startIntake());
     	
+    }
+    
+    public void autoEject(){
+    	intakeDrive.set(-1.0);
     }
    
 }

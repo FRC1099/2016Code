@@ -14,6 +14,11 @@ public class RobotMap {
 	//Motor Ports:
 	public static final int LEFTDRIVE = 0;
 	public static final int RIGHTDRIVE = 1;
+	public static final int INTAKE = 3;
+	
+	// Motor Switch to CAN
+	public static final int LEFTDRIVE_CAN = 0;
+	public static final int RIGHTDRIVE_CAN = 1;
 	
 	//Joystick Ports:
 	public static final int LEFTSTICK = 0;
@@ -29,7 +34,6 @@ public class RobotMap {
     public static final int BALL_IN = 2;
     public static final int BALL_OUT = 3;
     public static final int LIFT_ARM = 5;
-    
     
     //Solenoid Channels
     public static final int GRAB = 0;

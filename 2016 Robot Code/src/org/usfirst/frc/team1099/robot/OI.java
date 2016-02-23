@@ -32,8 +32,8 @@ public class OI {
         // drive straight
         //Button go_straight = new JoystickButton(gamepad, 4);
         //go_straight.whileHeld( new GyroDrive(.5));
-        //Button turnAngle = new JoystickButton(gamepad, RobotMap.TURN_ANGLE);
-        //turnAngle.whenPressed(new TurnAngle());
+        Button turnAngle = new JoystickButton(gamepad, RobotMap.TURN_ANGLE);
+        turnAngle.whenPressed(new TurnAngle());
     }
     
     public double getLeftTrigger() {
