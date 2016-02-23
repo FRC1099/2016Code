@@ -41,7 +41,8 @@ public class Drive extends Subsystem {
 
 		// only need one of these
 		l1.reverseSensor(false);
-		l1.reverseOutput(true);
+		l1.reverseOutput(false);
+		l1.setInverted(true);
 		
 		r1.reverseSensor(false);
 		r1.reverseOutput(false);
@@ -55,12 +56,16 @@ public class Drive extends Subsystem {
 		double ramprate = 36;
 		int profile = 0;
 		
-		l1.setPID(p, i, d, f, izone, ramprate, profile);
-		r1.setPID(p, i, d, f, izone, ramprate, profile);
+		// l1.setPID(p, i, d, f, izone, ramprate, profile);
+		// r1.setPID(p, i, d, f, izone, ramprate, profile);
 
 		// put things in voltage mode, and all the PID code is ignored
+		l1.setVoltageRampRate(60);
+		r1.setVoltageRampRate(60);
+		
 		l1.changeControlMode(TalonControlMode.PercentVbus);
 		r1.changeControlMode(TalonControlMode.PercentVbus);
+		
 		
 		// set up the slave for the second Talon for the left drive
 		CANTalon l_slave = new CANTalon(2);
@@ -79,8 +84,8 @@ public class Drive extends Subsystem {
 	}
 	
 	public void drive() {
-		double left = -OI.leftStick.getRawAxis(1);
-		double right = -OI.rightStick.getRawAxis(1);
+		double left = OI.leftStick.getRawAxis(1);
+		double right = OI.rightStick.getRawAxis(1);
 		
 		l1.set(left);
 		r1.set(right);
@@ -104,7 +109,7 @@ public class Drive extends Subsystem {
 	public void autoDrive(double left, double right) {
 		drive.tankDrive(left, right);
 		log();
-	}
+	} 
 	
 	public void autoDrive(double speed) {
 		autoDrive(speed, speed);

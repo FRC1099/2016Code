@@ -25,7 +25,7 @@ public class Intake extends Subsystem {
     
     public void startIntake(){
     	
-    		double in_speed = SmartDashboard.getNumber("intake_speed", 0.5);
+    		double in_speed = SmartDashboard.getNumber("intake_speed", 0.8);
     		
     		if(Robot.oi.getLeftTrigger() > 0.99) {
     			intakeDrive.set(in_speed);

@@ -73,7 +73,7 @@ public class Robot extends IterativeRobot {
     
         SmartDashboard.putNumber("Turn Angle", 90.0);
         
-        SmartDashboard.putNumber("intake_speed", 0.5);
+        SmartDashboard.putNumber("intake_speed", 0.8);
         
         // seed the PID settings
         SmartDashboard.putNumber("PID-p", 0.2);
