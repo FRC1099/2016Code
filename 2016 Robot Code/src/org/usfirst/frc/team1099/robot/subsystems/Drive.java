@@ -87,6 +87,11 @@ public class Drive extends Subsystem {
 		double left = OI.leftStick.getRawAxis(1);
 		double right = OI.rightStick.getRawAxis(1);
 		
+		drive(left,right);
+	}
+	
+	public void drive(double left, double right){
+		
 		l1.set(left);
 		r1.set(right);
 		
@@ -97,22 +102,11 @@ public class Drive extends Subsystem {
 		l1.changeControlMode(TalonControlMode.Speed);
 		r1.changeControlMode(TalonControlMode.Speed);
 		
-		l1.set(0);
-		r1.set(0);
+		drive(0,0);
 	}
 	
 	public void speedControlDrive() {
-		l1.set(OI.leftStick.getRawAxis(1));
-		r1.set(OI.leftStick.getRawAxis(1));
-	}
-	
-	public void autoDrive(double left, double right) {
-		drive.tankDrive(left, right);
-		log();
-	} 
-	
-	public void autoDrive(double speed) {
-		autoDrive(speed, speed);
+		drive(OI.leftStick.getRawAxis(1),OI.rightStick.getRawAxis(1));
 	}
 	
 	// multiplier
@@ -126,19 +120,21 @@ public class Drive extends Subsystem {
 		// (target - angle) or reverse
 		
 		if ( angle < 0) {
-			autoDrive(speed*(1+m), speed);
+			drive(speed*(1+m), speed);
 		} else {
-			autoDrive(speed, speed*(1+m));
+			drive(speed, speed*(1+m));
 		}
 	}
 	
 	public void turnAngle(double target){
-		double dif = target - gyro.getYaw();
+		
+		/**
 		double factor = 0.05;
 		double maxTurn = 10; //turn 10 degrees
 		double actualTurn;
 
 		actualTurn = dif * factor *-1.0;
+		
 		
 		if(actualTurn > maxTurn){
 			drive.arcadeDrive(0.0,  maxTurn);
@@ -147,6 +143,18 @@ public class Drive extends Subsystem {
 			drive.arcadeDrive(0, maxTurn * -1.0);
 		} else {
 			drive.arcadeDrive(0, actualTurn);
+		}
+		**/
+		double dif = target - gyro.getYaw();
+		double minSpeed = .2;
+		double maxSpeed = 1.0;
+		double speed = ((maxSpeed-minSpeed)/90)*dif + minSpeed;
+		speed = Math.max(speed,1);
+		
+		if(dif > 0){
+			drive(speed,-speed);
+		} else {
+			drive(-speed,speed);
 		}
 		
 	}

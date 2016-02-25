@@ -31,7 +31,7 @@ public class AutoDrive extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.drive.autoDrive(left, right);
+		Robot.drive.drive(left, right);
 	}
 
 	@Override
