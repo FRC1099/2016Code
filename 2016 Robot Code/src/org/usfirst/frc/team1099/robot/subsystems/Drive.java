@@ -22,11 +22,11 @@ public class Drive extends Subsystem {
 	
 	AHRS gyro;
 	
-	CANTalon l1, r1;
+	//CANTalon l1, r1;
 	
 	public Drive() {
 	
-		l1 = new CANTalon(0);
+		/**l1 = new CANTalon(0);
 		r1 = new CANTalon(1);
 		
 		
@@ -56,8 +56,8 @@ public class Drive extends Subsystem {
 		double ramprate = 36;
 		int profile = 0;
 		
-		// l1.setPID(p, i, d, f, izone, ramprate, profile);
-		// r1.setPID(p, i, d, f, izone, ramprate, profile);
+		l1.setPID(p, i, d, f, izone, ramprate, profile);
+		r1.setPID(p, i, d, f, izone, ramprate, profile);
 
 		// put things in voltage mode, and all the PID code is ignored
 		l1.setVoltageRampRate(60);
@@ -77,37 +77,39 @@ public class Drive extends Subsystem {
 		r_slave.changeControlMode(TalonControlMode.Follower);
 		r_slave.set(1);
 		
-		drive = new RobotDrive(l1, r1);
+		drive = new RobotDrive(l1, r1);**/
+		drive = new RobotDrive(RobotMap.LEFTDRIVE, RobotMap.RIGHTDRIVE);
 		drive.setExpiration(0.1);
 		
 		gyro = new AHRS(SPI.Port.kMXP); 
 	}
 	
 	public void drive() {
-		double left = OI.leftStick.getRawAxis(1);
+		/**double left = OI.leftStick.getRawAxis(1);
 		double right = OI.rightStick.getRawAxis(1);
 		
-		drive(left,right);
+		drive(left,right);**/
+		drive.tankDrive(RobotMap.LEFTSTICK, RobotMap.RIGHTSTICK);
 	}
 	
 	public void drive(double left, double right){
 		
-		l1.set(left);
-		r1.set(right);
+		//l1.set(left);
+		//r1.set(right);
 		
 		log();
 	}
 	
 	public void startSpeedControl() {
-		l1.changeControlMode(TalonControlMode.Speed);
-		r1.changeControlMode(TalonControlMode.Speed);
+		//l1.changeControlMode(TalonControlMode.Speed);
+		//r1.changeControlMode(TalonControlMode.Speed);
 		
 		drive(0,0);
 	}
 	
-	public void speedControlDrive() {
-		drive(OI.leftStick.getRawAxis(1),OI.rightStick.getRawAxis(1));
-	}
+	//public void speedControlDrive() {
+		//drive(OI.leftStick.getRawAxis(1),OI.rightStick.getRawAxis(1));
+	//}
 	
 	// multiplier
 	private double m = .4;
@@ -177,14 +179,14 @@ public class Drive extends Subsystem {
 
     public void resetPID(){
     	
-    	double p = SmartDashboard.getNumber("PID-p", 0.2);
+    	/**double p = SmartDashboard.getNumber("PID-p", 0.2);
     	double i = SmartDashboard.getNumber("PID-i", 0.001);
     	double d = SmartDashboard.getNumber("PID-d", 0.0);
     	double f = SmartDashboard.getNumber("PID-f", 0.5);
     	
     	// p, i, d, f, izone, ramprate, profile 
     	l1.setPID(p, i, d, f, 0, 12.0, 0);
-    	r1.setPID(p, i, d, f, 0, 12.0, 0);
+    	r1.setPID(p, i, d, f, 0, 12.0, 0);**/
     }
     
 }
