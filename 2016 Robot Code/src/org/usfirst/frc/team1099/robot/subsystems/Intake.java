@@ -21,6 +21,7 @@ public class Intake extends Subsystem {
 	DigitalInput boulder_switch = new DigitalInput(RobotMap.BOULDER_SWITCH);
 
     public Intake(){
+    	intakeDrive.setInverted(true);
     }
     
     public void startIntake(){

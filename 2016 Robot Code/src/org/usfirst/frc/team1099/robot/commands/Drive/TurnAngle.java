@@ -28,8 +28,6 @@ public class TurnAngle extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drive.resetYaw();
-    	
-        
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,7 +35,6 @@ public class TurnAngle extends Command {
     	Robot.drive.turnAngle(this.target);
     }
     
-
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	double dif = target - Robot.drive.getYaw();

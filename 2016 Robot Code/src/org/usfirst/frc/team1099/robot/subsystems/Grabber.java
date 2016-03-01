@@ -5,7 +5,6 @@ import org.usfirst.frc.team1099.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,6 +23,7 @@ public class Grabber extends Subsystem {
     	grab.set(DoubleSolenoid.Value.kForward);
     	isOpen = false;
     }
+    
     
     public void ungrab(){
     	grab.set(DoubleSolenoid.Value.kReverse);

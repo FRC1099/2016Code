@@ -5,8 +5,6 @@ import org.usfirst.frc.team1099.robot.RobotMap;
 import org.usfirst.frc.team1099.robot.commands.Drive.TeleDrive;
 
 import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.CANSpeedController.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -22,28 +20,78 @@ public class Drive extends Subsystem {
 	
 	AHRS gyro;
 	
-	//CANTalon l1, r1;
+	//CANJaguar l1, r1;
+	CANTalon l1, r1;
 	
+	/*
 	public Drive() {
-	
-		/**l1 = new CANTalon(0);
-		r1 = new CANTalon(1);
+
+		l1 = new CANJaguar(RobotMap.LEFTDRIVE_JCAN);
+		r1 = new CANJaguar(RobotMap.RIGHTDRIVE_JCAN);
 		
 		
 		// there are a lot of setting for the CAN motors
 		// we set everything on the master, and the slave should follow
 		
-		l1.setVoltageRampRate(12.0);
-		r1.setVoltageRampRate(12.0);
+		l1.setVoltageRampRate(60.0);
+		r1.setVoltageRampRate(60.0);
+		
+		//l1.setFeedbackDevice(CANJaguar.FeedbackDevice.QuadEncoder);
+		//r1.setFeedbackDevice(CANJaguar.FeedbackDevice.QuadEncoder);
+
+		//Used during Voltage Control
+		
+		// Used during Speed Control
+		l1.reverseSensor(false);
+		l1.reverseOutput(false);
+		r1.reverseSensor(false);
+		r1.reverseOutput(false);
+		
+		// PID settings
+		double p = 0.2;
+		double i = 0.001;
+		double d = 0.00;
+		double f = 0.5;
+		int izone = 0;
+		double ramprate = 36;
+		int profile = 0;
+		
+		/*l1.setPID(p, i, d, f, izone, ramprate, profile);
+		r1.setPID(p, i, d, f, izone, ramprate, profile);
+		
+		//Put into Voltage Control
+		l1.setPercentMode();
+		r1.setPercentMode();
+		
+		l1.enableControl();
+		r1.enableControl();
+		
+		gyro = new AHRS(SPI.Port.kMXP); 
+	}
+	*/
+	
+	public Drive() {
+		
+		l1 = new CANTalon(RobotMap.LEFTDRIVE_CAN);
+		r1 = new CANTalon(RobotMap.RIGHTDRIVE_CAN);
+		
+		
+		// there are a lot of setting for the CAN motors
+		// we set everything on the master, and the slave should follow
+		
+		l1.setVoltageRampRate(60.0);
+		r1.setVoltageRampRate(60.0);
 		
 		l1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		r1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 
-		// only need one of these
+		//Used during Voltage Control
+		l1.setInverted(false);
+		r1.setInverted(true);
+		
+		// Used during Speed Control
 		l1.reverseSensor(false);
 		l1.reverseOutput(false);
-		l1.setInverted(true);
-		
 		r1.reverseSensor(false);
 		r1.reverseOutput(false);
 		
@@ -58,14 +106,10 @@ public class Drive extends Subsystem {
 		
 		l1.setPID(p, i, d, f, izone, ramprate, profile);
 		r1.setPID(p, i, d, f, izone, ramprate, profile);
-
-		// put things in voltage mode, and all the PID code is ignored
-		l1.setVoltageRampRate(60);
-		r1.setVoltageRampRate(60);
 		
+		//Put into Voltage Control
 		l1.changeControlMode(TalonControlMode.PercentVbus);
 		r1.changeControlMode(TalonControlMode.PercentVbus);
-		
 		
 		// set up the slave for the second Talon for the left drive
 		CANTalon l_slave = new CANTalon(2);
@@ -77,34 +121,30 @@ public class Drive extends Subsystem {
 		r_slave.changeControlMode(TalonControlMode.Follower);
 		r_slave.set(1);
 		
-		drive = new RobotDrive(l1, r1);**/
-		drive = new RobotDrive(RobotMap.LEFTDRIVE, RobotMap.RIGHTDRIVE);
-		drive.setExpiration(0.1);
-		
 		gyro = new AHRS(SPI.Port.kMXP); 
 	}
 	
 	public void drive() {
-		/**double left = OI.leftStick.getRawAxis(1);
-		double right = OI.rightStick.getRawAxis(1);
+		double left = -OI.leftStick.getRawAxis(1);
+		double right = -OI.rightStick.getRawAxis(1);
 		
-		drive(left,right);**/
-		drive.tankDrive(RobotMap.LEFTSTICK, RobotMap.RIGHTSTICK);
+		drive(left,right);		
 	}
 	
+	//Main Drive Method...Should Always be called
 	public void drive(double left, double right){
 		
-		//l1.set(left);
-		//r1.set(right);
-		
+		l1.set(left);
+		r1.set(right);
 		log();
+		
 	}
 	
 	public void startSpeedControl() {
 		//l1.changeControlMode(TalonControlMode.Speed);
 		//r1.changeControlMode(TalonControlMode.Speed);
 		
-		drive(0,0);
+		//drive(0,0);
 	}
 	
 	//public void speedControlDrive() {
@@ -117,41 +157,35 @@ public class Drive extends Subsystem {
 	public void gryoDrive(double speed) {
 		
 		double angle = gyro.getYaw();
-		
+		double threshold = 2;
+
 		// adjust the multiplier according to the magnitude of the difference?
 		// (target - angle) or reverse
 		
-		if ( angle < 0) {
-			drive(speed*(1+m), speed);
+		if (angle > threshold) {
+			drive(speed*(1-m), speed*(1+m));
+		} else if ( angle < -threshold) {
+			drive(speed*(1+m), speed*(1-m));
 		} else {
-			drive(speed, speed*(1+m));
+			drive(speed,speed);
 		}
 	}
 	
 	public void turnAngle(double target){
 		
-		/**
-		double factor = 0.05;
-		double maxTurn = 10; //turn 10 degrees
-		double actualTurn;
-
-		actualTurn = dif * factor *-1.0;
 		
 		
-		if(actualTurn > maxTurn){
-			drive.arcadeDrive(0.0,  maxTurn);
-		}
-		else if (actualTurn < (maxTurn * -1.0)){
-			drive.arcadeDrive(0, maxTurn * -1.0);
-		} else {
-			drive.arcadeDrive(0, actualTurn);
-		}
-		**/
 		double dif = target - gyro.getYaw();
-		double minSpeed = .2;
-		double maxSpeed = 1.0;
-		double speed = ((maxSpeed-minSpeed)/90)*dif + minSpeed;
-		speed = Math.max(speed,1);
+
+		double minSpeed = SmartDashboard.getNumber("minSpeed", .3);
+		double maxSpeed = SmartDashboard.getNumber("maxSpeed", .5);
+		
+		double speed = ((maxSpeed-minSpeed)/64800.0)*dif*dif + (dif*(maxSpeed-minSpeed))/360.0 + minSpeed;
+		speed = Math.min(speed,maxSpeed);
+		
+		SmartDashboard.putNumber("speed", speed);
+		SmartDashboard.putNumber("yaw", gyro.getYaw());
+		SmartDashboard.putNumber("diff", dif);
 		
 		if(dif > 0){
 			drive(speed,-speed);
@@ -160,7 +194,7 @@ public class Drive extends Subsystem {
 		}
 		
 	}
-
+	
 	public double getYaw(){
 		return gyro.getYaw();
 	}
@@ -174,20 +208,19 @@ public class Drive extends Subsystem {
     }
     
     private void log() {
-    	SmartDashboard.putNumber("Angle", gyro.getAngle());
+    	SmartDashboard.putNumber("Angle", gyro.getAngle());    	
     }
 
     public void resetPID(){
     	
-    	/**double p = SmartDashboard.getNumber("PID-p", 0.2);
-    	double i = SmartDashboard.getNumber("PID-i", 0.001);
-    	double d = SmartDashboard.getNumber("PID-d", 0.0);
-    	double f = SmartDashboard.getNumber("PID-f", 0.5);
+    	//double p = SmartDashboard.getNumber("PID-p", 0.2);
+    	//double i = SmartDashboard.getNumber("PID-i", 0.001);
+    	//double d = SmartDashboard.getNumber("PID-d", 0.0);
+    	//double f = SmartDashboard.getNumber("PID-f", 0.5);
     	
     	// p, i, d, f, izone, ramprate, profile 
-    	l1.setPID(p, i, d, f, 0, 12.0, 0);
-    	r1.setPID(p, i, d, f, 0, 12.0, 0);**/
+    	//l1.setPID(p, i, d, f, 0, 12.0, 0);
+    	//r1.setPID(p, i, d, f, 0, 12.0, 0);
     }
-    
 }
 

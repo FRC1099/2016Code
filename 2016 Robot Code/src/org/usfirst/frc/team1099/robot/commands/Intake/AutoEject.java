@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1099.robot.commands.Intake;
 
 import org.usfirst.frc.team1099.robot.Robot;
-import org.usfirst.frc.team1099.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 

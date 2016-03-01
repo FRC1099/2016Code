@@ -9,10 +9,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team1099.robot.commands.DoNothing;
 import org.usfirst.frc.team1099.robot.commands.DriveAndTurn;
-import org.usfirst.frc.team1099.robot.commands.DriveAuto;
 import org.usfirst.frc.team1099.robot.commands.DriveForward;
-import org.usfirst.frc.team1099.robot.commands.Spin;
-import org.usfirst.frc.team1099.robot.commands.Drive.ResetPID;
 import org.usfirst.frc.team1099.robot.commands.Drive.TurnAngle;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
@@ -49,7 +46,7 @@ public class Robot extends IterativeRobot {
         camserver = CameraServer.getInstance();
         camserver.setQuality(25);
         //the camera name (ex "cam0") can be found through the roborio web interface
-        camserver.startAutomaticCapture("cam0");
+        camserver.startAutomaticCapture("cam1");
     }
 
     /**
@@ -76,14 +73,18 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("intake_speed", 0.8);
         
         // seed the PID settings
-        SmartDashboard.putNumber("PID-p", 0.2);
-    	SmartDashboard.putNumber("PID-i", 0.001);
-    	SmartDashboard.putNumber("PID-d", 0.0);
-    	SmartDashboard.putNumber("PID-f", 0.5);
+        //SmartDashboard.putNumber("PID-p", 0.2);
+    	//SmartDashboard.putNumber("PID-i", 0.001);
+    	//SmartDashboard.putNumber("PID-d", 0.0);
+    	//SmartDashboard.putNumber("PID-f", 0.5);
     	
         // add some command shortcuts
-        SmartDashboard.putData("Do 90 Degrees", new TurnAngle(-90));
-        SmartDashboard.putData("Reset PID", new ResetPID());
+        SmartDashboard.putData("Do -90 Degrees", new TurnAngle(-90));
+        SmartDashboard.putData("Do 45 Degrees", new TurnAngle(45));
+        SmartDashboard.putNumber("maxSpeed", .5);
+        SmartDashboard.putNumber("minSpeed", .3);
+        
+        //SmartDashboard.putData("Reset PID", new ResetPID());
         
         
     }
