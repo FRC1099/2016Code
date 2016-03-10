@@ -128,6 +128,10 @@ public class Drive extends Subsystem {
 		double left = -OI.leftStick.getRawAxis(1);
 		double right = -OI.rightStick.getRawAxis(1);
 		
+		if( OI.rightStick.getTrigger()){
+			left *= .5;
+			right *= .5;
+		}
 		drive(left,right);		
 	}
 	
@@ -172,20 +176,18 @@ public class Drive extends Subsystem {
 	}
 	
 	public void turnAngle(double target){
-		
-		
-		
+
 		double dif = target - gyro.getYaw();
 
-		double minSpeed = SmartDashboard.getNumber("minSpeed", .3);
-		double maxSpeed = SmartDashboard.getNumber("maxSpeed", .5);
+		double minSpeed = 0.8; //SmartDashboard.getNumber("minSpeed", .8);
+		double maxSpeed = 1.0; //SmartDashboard.getNumber("maxSpeed", 1.0);
 		
-		double speed = ((maxSpeed-minSpeed)/64800.0)*dif*dif + (dif*(maxSpeed-minSpeed))/360.0 + minSpeed;
+		//double speed = ((maxSpeed-minSpeed)/64800.0)*dif*dif + (dif*(maxSpeed-minSpeed))/360.0 + minSpeed;
+		double speed = (dif*(maxSpeed-minSpeed))/360.0 + minSpeed;
 		speed = Math.min(speed,maxSpeed);
 		
 		SmartDashboard.putNumber("speed", speed);
-		SmartDashboard.putNumber("yaw", gyro.getYaw());
-		SmartDashboard.putNumber("diff", dif);
+		// SmartDashboard.putNumber("yaw", gyro.getYaw());
 		
 		if(dif > 0){
 			drive(speed,-speed);
@@ -193,6 +195,10 @@ public class Drive extends Subsystem {
 			drive(-speed,speed);
 		}
 		
+	}
+
+	public double getAngle(){
+		return gyro.getAngle();
 	}
 	
 	public double getYaw(){

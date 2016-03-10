@@ -8,8 +8,12 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team1099.robot.commands.DoNothing;
-import org.usfirst.frc.team1099.robot.commands.DriveAndTurn;
+import org.usfirst.frc.team1099.robot.commands.DriveInSquare;
+import org.usfirst.frc.team1099.robot.commands.DriveLowBar;
+import org.usfirst.frc.team1099.robot.commands.DriveLowBarScore;
 import org.usfirst.frc.team1099.robot.commands.DriveForward;
+import org.usfirst.frc.team1099.robot.commands.DriveForwardBackward;
+import org.usfirst.frc.team1099.robot.commands.DriveForwardScore;
 import org.usfirst.frc.team1099.robot.commands.Drive.TurnAngle;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 import org.usfirst.frc.team1099.robot.subsystems.Grabber;
@@ -44,7 +48,7 @@ public class Robot extends IterativeRobot {
 
     public Robot() {
         camserver = CameraServer.getInstance();
-        camserver.setQuality(25);
+        camserver.setQuality(10);
         //the camera name (ex "cam0") can be found through the roborio web interface
         camserver.startAutomaticCapture("cam1");
     }
@@ -59,8 +63,12 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
 
         chooser.addObject("Do Nothing", new DoNothing());
-        chooser.addObject("DriveAndTurn", new DriveAndTurn());
         chooser.addObject("Drive Forward", new DriveForward());
+        chooser.addObject("Drive Forward, Backwards", new DriveForwardBackward());
+        chooser.addObject("Drive Forward, Turn Right, Score", new DriveForwardScore(DriveForwardScore.RIGHT));
+        chooser.addObject("Drive Forward, Turn Left, Score", new DriveForwardScore(DriveForwardScore.LEFT));
+        chooser.addObject("Drive Backward, Low Bar", new DriveLowBar());
+        chooser.addObject("Drive Backward, Low Bar, Score", new DriveLowBarScore());
         
         SmartDashboard.putData("Auto mode", chooser);
         
@@ -71,6 +79,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Turn Angle", 90.0);
         
         SmartDashboard.putNumber("intake_speed", 0.8);
+        SmartDashboard.putNumber("bu speed",  .25);
         
         // seed the PID settings
         //SmartDashboard.putNumber("PID-p", 0.2);
@@ -81,8 +90,6 @@ public class Robot extends IterativeRobot {
         // add some command shortcuts
         SmartDashboard.putData("Do -90 Degrees", new TurnAngle(-90));
         SmartDashboard.putData("Do 45 Degrees", new TurnAngle(45));
-        SmartDashboard.putNumber("maxSpeed", .5);
-        SmartDashboard.putNumber("minSpeed", .3);
         
         //SmartDashboard.putData("Reset PID", new ResetPID());
         

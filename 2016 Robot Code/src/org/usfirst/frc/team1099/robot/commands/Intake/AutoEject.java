@@ -20,7 +20,12 @@ public class AutoEject extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.autoEject();
+    	
+    	// if we are not at least 45 degrees from the starting orientation DONT EJECT
+    	//double angle = Robot.drive.getAngle();
+    	//if( angle > 45 && angle < 315) {
+    		Robot.intake.autoEject();
+    	//}
     }
 
     // Make this return true when this Command no longer needs to run execute()

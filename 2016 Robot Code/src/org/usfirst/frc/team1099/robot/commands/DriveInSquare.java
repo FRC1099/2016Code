@@ -1,16 +1,15 @@
 package org.usfirst.frc.team1099.robot.commands;
 import org.usfirst.frc.team1099.robot.commands.Drive.GyroDrive;
 import org.usfirst.frc.team1099.robot.commands.Drive.TurnAngle;
-import org.usfirst.frc.team1099.robot.commands.Intake.AutoEject;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class DriveAndTurn extends CommandGroup {
+public class DriveInSquare extends CommandGroup {
     
-    public  DriveAndTurn() {
+    public  DriveInSquare() {
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());
