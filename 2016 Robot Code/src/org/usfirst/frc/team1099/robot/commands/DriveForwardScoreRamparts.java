@@ -38,7 +38,7 @@ public class DriveForwardScoreRamparts extends CommandGroup {
     	
     	
     	//addSequential(new ResetYaw());
-    	addSequential(new AutoDrive(.7), 1.5);
+    	addSequential(new AutoDrive(.5), 1.5);
     	addSequential(new AutoEject(), 1.0);
     }
 }
