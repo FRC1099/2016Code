@@ -1,9 +1,11 @@
 package org.usfirst.frc.team1099.robot.commands;
 
+import org.usfirst.frc.team1099.robot.commands.DefenseArm.DownDefenseArm;
 import org.usfirst.frc.team1099.robot.commands.Drive.AutoDrive;
 import org.usfirst.frc.team1099.robot.commands.Drive.GyroDrive;
-import org.usfirst.frc.team1099.robot.commands.Grabber.Grab;
-import org.usfirst.frc.team1099.robot.commands.Grabber.Un_Grab;
+import org.usfirst.frc.team1099.robot.commands.Drive.ResetYaw;
+import org.usfirst.frc.team1099.robot.commands.Intake.Grab;
+import org.usfirst.frc.team1099.robot.commands.Intake.Un_Grab;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -33,9 +35,9 @@ public class DriveLowBar extends CommandGroup {
         // arm.
     	
     	//double speed = SmartDashboard.getNumber("bu speed",  .25);
-    	addSequential(new Un_Grab(), .5); 
+    	addSequential(new ResetYaw(), .25);
+    	addSequential(new DownDefenseArm(), 1.0);
+    	addSequential(new Un_Grab(), 1.0); 
     	addSequential(new AutoDrive(-0.25), 10.0);
-    	addSequential(new Grab(), .5);
-    	addSequential(new AutoDrive(.2), 0.5);
     }
 }

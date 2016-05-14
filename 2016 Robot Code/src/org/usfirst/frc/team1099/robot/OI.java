@@ -3,8 +3,10 @@ package org.usfirst.frc.team1099.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.usfirst.frc.team1099.robot.commands.Drive.TurnAngle;
-import org.usfirst.frc.team1099.robot.commands.Grabber.ToggleGrab;
+import org.usfirst.frc.team1099.robot.commands.DefenseArm.DownDefenseArm;
+import org.usfirst.frc.team1099.robot.commands.DefenseArm.UpDefenseArm;
+import org.usfirst.frc.team1099.robot.commands.Intake.ToggleGrab;
+import org.usfirst.frc.team1099.robot.commands.LiftArm.ToggleLiftExtender;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,8 +26,14 @@ public class OI {
         Button togglegrab = new JoystickButton(gamepad, RobotMap.TOGGLE_INTAKE);
         togglegrab.whenPressed(new ToggleGrab());
         
-        Button turnAngle = new JoystickButton(gamepad, RobotMap.TURN_ANGLE);
-        turnAngle.whenPressed(new TurnAngle());
+        Button toggleliftextender = new JoystickButton(gamepad, RobotMap.TOGGLE_LIFTEXTEND);
+        toggleliftextender.whenPressed(new ToggleLiftExtender());
+        	
+        Button downdefensearm = new JoystickButton(gamepad, RobotMap.DOWNDEFENSEARM);
+        downdefensearm.whileHeld(new DownDefenseArm());
+        
+        Button updefensearm = new JoystickButton(gamepad, RobotMap.UPDEFENSEARM);
+        updefensearm.whileHeld(new UpDefenseArm());
     }
     
     public double getLeftTrigger() {
@@ -36,12 +44,12 @@ public class OI {
 		return gamepad.getRawAxis(RobotMap.BALL_OUT);
 	}
 	
-	public double getLiftArm() {
-		return gamepad.getRawAxis(RobotMap.LIFT_ARM);
+	public double getRightAxis() {
+		return gamepad.getRawAxis(RobotMap.LIFTWINCHAXIS);
 	}
 	
-	public double getHangArm() {
-		return gamepad.getRawAxis(RobotMap.HANG_ARM);
+	public double getLeftAxis() {
+		return gamepad.getRawAxis(RobotMap.LIFTAXIS);
 	}
 }
 

@@ -112,9 +112,9 @@ public class Drive extends Subsystem {
 		r1.changeControlMode(TalonControlMode.PercentVbus);
 		
 		// set up the slave for the second Talon for the left drive
-		CANTalon l_slave = new CANTalon(2);
+		CANTalon l_slave = new CANTalon(4);
 		l_slave.changeControlMode(TalonControlMode.Follower);
-		l_slave.set(0);
+		l_slave.set(2);
 		
 		// right slave
 		CANTalon r_slave = new CANTalon(3);
@@ -137,7 +137,6 @@ public class Drive extends Subsystem {
 	
 	//Main Drive Method...Should Always be called
 	public void drive(double left, double right){
-		
 		l1.set(left);
 		r1.set(right);
 		log();
@@ -161,7 +160,7 @@ public class Drive extends Subsystem {
 	public void gryoDrive(double speed) {
 		
 		double angle = gyro.getYaw();
-		double threshold = 2;
+		double threshold = 4;
 
 		// adjust the multiplier according to the magnitude of the difference?
 		// (target - angle) or reverse
@@ -189,10 +188,13 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("speed", speed);
 		// SmartDashboard.putNumber("yaw", gyro.getYaw());
 		
-		if(dif > 0){
+		if(dif >= 4){
 			drive(speed,-speed);
-		} else {
+		} else if (dif <= -4) {
 			drive(-speed,speed);
+		}
+		else {
+			drive(0,0);
 		}
 		
 	}

@@ -8,16 +8,15 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team1099.robot.commands.DoNothing;
-import org.usfirst.frc.team1099.robot.commands.DriveInSquare;
-import org.usfirst.frc.team1099.robot.commands.DriveLowBar;
-import org.usfirst.frc.team1099.robot.commands.DriveLowBarScore;
 import org.usfirst.frc.team1099.robot.commands.DriveForward;
-import org.usfirst.frc.team1099.robot.commands.DriveForwardBackward;
+import org.usfirst.frc.team1099.robot.commands.DriveForwardDrop;
+import org.usfirst.frc.team1099.robot.commands.DriveForwardCheval;
 import org.usfirst.frc.team1099.robot.commands.DriveForwardScore;
+import org.usfirst.frc.team1099.robot.commands.DriveForwardScoreMoat;
+import org.usfirst.frc.team1099.robot.commands.DriveForwardScoreRamparts;
 import org.usfirst.frc.team1099.robot.commands.Drive.TurnAngle;
+import org.usfirst.frc.team1099.robot.subsystems.DefenseArm;
 import org.usfirst.frc.team1099.robot.subsystems.Drive;
-import org.usfirst.frc.team1099.robot.subsystems.Grabber;
-import org.usfirst.frc.team1099.robot.subsystems.HangArm;
 import org.usfirst.frc.team1099.robot.subsystems.Intake;
 import org.usfirst.frc.team1099.robot.subsystems.LiftArm;
 
@@ -30,13 +29,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
  * directory.
- */
+ */ 
+
 public class Robot extends IterativeRobot {
 	
 	public static final Drive drive = new Drive();
 	public static final Intake intake = new Intake();
-	public static final Grabber grabber = new Grabber();
-	public static final HangArm hangarm = new HangArm();
+	public static final DefenseArm defensearm = new DefenseArm();
 	public static final LiftArm liftarm = new LiftArm();
 
 	public static OI oi;
@@ -47,8 +46,8 @@ public class Robot extends IterativeRobot {
     CameraServer camserver;
 
     public Robot() {
-        camserver = CameraServer.getInstance();
-        camserver.setQuality(10);
+    	camserver = CameraServer.getInstance();
+        camserver.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
         camserver.startAutomaticCapture("cam1");
     }
@@ -62,24 +61,33 @@ public class Robot extends IterativeRobot {
 		
         chooser = new SendableChooser();
 
+        chooser.addDefault("Drive Forward Standard", new DriveForward());
         chooser.addObject("Do Nothing", new DoNothing());
-        chooser.addObject("Drive Forward", new DriveForward());
-        chooser.addObject("Drive Forward, Backwards", new DriveForwardBackward());
         chooser.addObject("Drive Forward, Turn Right, Score", new DriveForwardScore(DriveForwardScore.RIGHT));
         chooser.addObject("Drive Forward, Turn Left, Score", new DriveForwardScore(DriveForwardScore.LEFT));
-        chooser.addObject("Drive Backward, Low Bar", new DriveLowBar());
-        chooser.addObject("Drive Backward, Low Bar, Score", new DriveLowBarScore());
+        chooser.addObject("Drive Forward Ramparts, Turn Right, Score", new DriveForwardScoreRamparts(DriveForwardScore.RIGHT));
+        chooser.addObject("Drive Forward Ramparts, Turn Left, Score", new DriveForwardScoreRamparts(DriveForwardScore.LEFT));
+        chooser.addObject("Drive Forward Moat, Turn Right, Score", new DriveForwardScoreMoat(DriveForwardScore.RIGHT));
+        chooser.addObject("Drive Forward Moat, Turn Left, Score", new DriveForwardScoreMoat(DriveForwardScore.LEFT));
+        chooser.addObject("Drive Forward, Ball Out", new DriveForwardDrop());
+        //chooser.addObject("Portculis Arm Down, Drive Forward, Up, Forward", new DriveForwardPortculis());
+        chooser.addObject("Drive Forward Cheval", new DriveForwardCheval());
+        chooser.addObject("Drive Forward Rough Terrain", new DriveForward(.8, 2.0));
+        chooser.addObject("Drive Forward Moat", new DriveForward(1.0, 2.5));
         
         SmartDashboard.putData("Auto mode", chooser);
         
-        SmartDashboard.putData("Grabber", Robot.grabber );
-        SmartDashboard.putData("Intake", Robot.intake );
-        SmartDashboard.putData("Drive", Robot.drive );
+        //SmartDashboard.putData("Intake", Robot.intake);
+        //SmartDashboard.putData("Drive", Robot.drive);
+        //SmartDashboard.putData("Lift Arm", Robot.liftarm);
+        //SmartDashboard.putData("DefenseArm", Robot.defensearm);
     
-        SmartDashboard.putNumber("Turn Angle", 90.0);
-        
+        //SmartDashboard.putNumber("Turn Angle", 90.0);
         SmartDashboard.putNumber("intake_speed", 0.8);
-        SmartDashboard.putNumber("bu speed",  .25);
+        SmartDashboard.putNumber("lift arm motor speed", 1.0);
+        SmartDashboard.putNumber("lift arm winch speed", 1.0);
+        SmartDashboard.putNumber("up defense arm speed", 0.5);
+        SmartDashboard.putNumber("down defense arm speed", 0.35);
         
         // seed the PID settings
         //SmartDashboard.putNumber("PID-p", 0.2);
@@ -88,8 +96,8 @@ public class Robot extends IterativeRobot {
     	//SmartDashboard.putNumber("PID-f", 0.5);
     	
         // add some command shortcuts
-        SmartDashboard.putData("Do -90 Degrees", new TurnAngle(-90));
-        SmartDashboard.putData("Do 45 Degrees", new TurnAngle(45));
+        //SmartDashboard.putData("Do -90 Degrees", new TurnAngle(-90));
+        //SmartDashboard.putData("Do 45 Degrees", new TurnAngle(45));
         
         //SmartDashboard.putData("Reset PID", new ResetPID());
         
@@ -118,10 +126,19 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
+    	
+    	// try to reset the yaw here to avoid drift during game delays, which
+    	// seem to make us start off going to the side.
+    	drive.resetYaw();
+    	
         autonomousCommand = (Command) chooser.getSelected();
         
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        
+        // hard coded auto selection
+        // autonomousCommand =  new DriveForward();
+        // autonomousCommand.start();
     }
 
     /**

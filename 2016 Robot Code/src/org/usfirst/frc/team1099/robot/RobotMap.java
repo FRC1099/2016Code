@@ -8,16 +8,15 @@ package org.usfirst.frc.team1099.robot;
 public class RobotMap {
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
-    // public static int leftMotor = 1;
-    // public static int rightMotor = 2;
 	
 	//Motor Ports:
-	public static final int LEFTDRIVE = 0;
-	public static final int RIGHTDRIVE = 1;
 	public static final int INTAKE = 3;
+	public static final int DEFENSEMOTOR = 5;
+	public static final int LIFTMOTOR = 6;
+	public static final int LIFTWINCH = 7;
 	
 	// CAN Talon Motors
-	public static final int LEFTDRIVE_CAN = 0;
+	public static final int LEFTDRIVE_CAN = 2;
 	public static final int RIGHTDRIVE_CAN = 1;
 	
 	//CAN Jaguar Motors
@@ -31,17 +30,23 @@ public class RobotMap {
     
     //Gamepad Buttons:
     public static final int TOGGLE_INTAKE = 1;
-    public static final int TURN_ANGLE = 2;
-
+    public static final int TOGGLE_LIFTEXTEND = 3;
+    public static final int DOWNDEFENSEARM = 5;
+    public static final int UPDEFENSEARM = 6;
+    
     //Gamepad Axes:
-    public static final int HANG_ARM = 1;
     public static final int BALL_IN = 2;
     public static final int BALL_OUT = 3;
-    public static final int LIFT_ARM = 5;
+    public static final int LIFTAXIS = 1;
+    public static final int LIFTWINCHAXIS = 5;
     
     //Solenoid Channels
     public static final int GRAB = 0;
     public static final int UNGRAB = 1;
+    public static final int LIFTEXTEND = 2;
+    public static final int LIFTRETRACT = 3;
+    public static final int LIFTWINCHOUT = 4;
+    public static final int LIFTWINCHIN = 5;
     
     //Digital Inputs:
     public static final int BOULDER_SWITCH = 4;
